@@ -24,7 +24,7 @@ fi
 # Install dependencies if requirements.txt exists
 if [ -f "requirements.txt" ]; then
     echo "Installing dependencies..."
-    pip install -r requirements.txt --quiet
+    pip3 install -r requirements.txt --quiet
     echo "Dependencies installed successfully."
     echo ""
 fi
