@@ -22,15 +22,11 @@ jobs:
         distribution: 'temurin'
         
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v3.2.2
       
     - name: Make gradlew executable
       run: |
         cd android
-        if [ ! -f gradlew ]; then
-          # Create gradle wrapper if it doesn't exist
-          gradle wrapper
-        fi
         chmod +x gradlew
         
     - name: Build APK
@@ -38,12 +34,18 @@ jobs:
         cd android
         ./gradlew assembleRelease --stacktrace
         
-    - name: Sign APK
+    - name: Rename APK
       run: |
         cd android/app/build/outputs/apk/release
+        # Extract version from build.gradle
+        VERSION=$(grep "versionName" ../../../../../build.gradle | head -1 | awk '{print $2}' | tr -d '"')
         # For now, use the unsigned APK
         # In production, you would sign it with your keystore
-        cp app-release-unsigned.apk jarvis-assistant-v1.0.0.apk || cp app-release.apk jarvis-assistant-v1.0.0.apk || true
+        if [ -f app-release-unsigned.apk ]; then
+          cp app-release-unsigned.apk jarvis-assistant-v${VERSION}.apk
+        elif [ -f app-release.apk ]; then
+          cp app-release.apk jarvis-assistant-v${VERSION}.apk
+        fi
         
     - name: Upload APK
       uses: actions/upload-artifact@v4
