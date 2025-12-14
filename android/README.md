@@ -65,15 +65,17 @@ JARVIS AI Assistant for Android - A native Android application featuring the sam
 
 3. **Find the APK**
    ```
-   android/app/build/outputs/apk/release/app-release-unsigned.apk
+   android/app/build/outputs/apk/release/app-release.apk
    ```
+   
+   Note: The APK is now signed with debug keystore for testing. For production, use your own keystore.
 
 4. **Transfer and Install**
    - Connect your Android device via USB
    - Enable USB debugging
    - Install using ADB:
      ```bash
-     adb install app/build/outputs/apk/release/app-release-unsigned.apk
+     adb install app/build/outputs/apk/release/app-release.apk
      ```
 
 ### Option 3: Open in Android Studio
@@ -204,10 +206,16 @@ Edit `app/src/main/assets/www/index.html`
 ### APK Installation Issues
 
 **Problem**: "App not installed"
-- **Solution**: Enable "Unknown Sources" in Settings → Security
+- **Solution 1**: Enable "Unknown Sources" or "Install from Unknown Sources" in Settings → Security → Install Unknown Apps
+- **Solution 2**: If you have an older version installed, uninstall it first
+- **Solution 3**: Make sure you downloaded and extracted the complete APK file (not the ZIP)
 
-**Problem**: "Parse error"
-- **Solution**: Make sure you're running Android 7.0 or higher
+**Problem**: "Parse error" or "There was a problem parsing the package"
+- **Solution**: Make sure you're running Android 7.0 (API 24) or higher
+- **Check**: Verify the APK file downloaded completely and is not corrupted
+
+**Problem**: APK is too small (4MB) or seems incomplete
+- **Solution**: The new signed APK with optimizations should be properly sized. Re-download from latest workflow run
 
 ### Runtime Issues
 
@@ -218,6 +226,20 @@ Edit `app/src/main/assets/www/index.html`
 - **Solution**: Tap the input field and try typing again
 
 ## 🔒 Security & Permissions
+
+### APK Signing
+
+The APK is now properly signed for installation:
+- **Debug builds**: Signed with Android debug keystore (for testing)
+- **Release builds**: Signed with debug keystore by default
+- **Production**: For production deployment, create and use your own keystore
+
+To create your own keystore for production:
+```bash
+keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias
+```
+
+Then update `app/build.gradle` signingConfigs section with your keystore details.
 
 ### Required Permissions
 - **INTERNET**: For future web-based features (currently not used)
