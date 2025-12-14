@@ -250,9 +250,8 @@ class ActionExecutor(private val context: Context) {
         return try {
             // This requires Device Admin permission
             // Will be handled by JarvisDeviceAdminReceiver
-            val intent = Intent(context, com.jarvis.assistant.receiver.JarvisDeviceAdminReceiver::class.java).apply {
-                action = "com.jarvis.assistant.LOCK_DEVICE"
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            val intent = Intent("com.jarvis.assistant.LOCK_DEVICE").apply {
+                setClass(context, com.jarvis.assistant.receiver.JarvisDeviceAdminReceiver::class.java)
             }
             context.sendBroadcast(intent)
             true

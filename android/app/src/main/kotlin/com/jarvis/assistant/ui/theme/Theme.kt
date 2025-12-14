@@ -5,7 +5,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// JARVIS Color Scheme
+// JARVIS Color Scheme - Iron Man inspired cyan/blue theme
 val JarvisCyan = Color(0xFF00D4FF)
 val JarvisBlue = Color(0xFF0095D4)
 val JarvisDarkBlue = Color(0xFF006494)

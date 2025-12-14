@@ -25,11 +25,18 @@ interface GeminiApiService {
 
 /**
  * Client for interacting with Google's Gemini API
+ * 
+ * SECURITY WARNING: The API key is hardcoded for demo purposes only.
+ * In production, store API keys in:
+ * - BuildConfig (via gradle.properties or environment variables)
+ * - local.properties (excluded from version control)
+ * - Secure key management service
  */
 class GeminiClient {
     
     companion object {
         private const val BASE_URL = "https://generativelanguage.googleapis.com/"
+        // TODO: Move to BuildConfig.GEMINI_API_KEY for production
         private const val API_KEY = "AIzaSyA0tkbFf1fvrf9ba94RszVhw3W2IOZZBBU"
         
         private const val SYSTEM_INSTRUCTION = """
