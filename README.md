@@ -32,15 +32,25 @@ A high-tech AI bot inspired by JARVIS from Iron Man, designed to control applica
 
 ## 📱 Android App Available!
 
-JARVIS is now available as a native Android app! 
+JARVIS is now available as a native Android app with proper APK signing! 
 
-### Download APK
+### Download & Install APK
 1. Go to **[Actions](../../actions)** tab
-2. Click the latest "Build Android APK" workflow
-3. Download **JARVIS-Android-APK** artifact
-4. Install on your Android device (requires Android 7.0+)
+2. Click the latest "Build Android APK" workflow (should be green ✓)
+3. Download **JARVIS-Android-APK** artifact (scroll to bottom)
+4. Extract the ZIP file to get the APK
+5. Enable "Install from Unknown Sources" in your Android settings
+6. Install the APK on your Android device (requires Android 7.0+)
 
-📖 [Android App Documentation](android/README.md)
+### ✨ Recent Improvements
+- ✅ **Properly signed APK** - No more "app not installed" errors
+- ✅ **Optimized build** - Smaller APK size with minification
+- ✅ **Better compatibility** - Works on more Android devices
+- ✅ **Enhanced error handling** - Better debugging and stability
+
+📖 **Detailed Instructions**: 
+- [English Documentation](android/README.md)
+- [हिंदी में डॉक्यूमेंटेशन](ANDROID_SETUP_HINDI.md)
 
 ## 🚀 Quick Start (Web Version)
 

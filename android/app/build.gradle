@@ -14,16 +14,44 @@ android {
         versionName "1.0.0"
     }
 
+    signingConfigs {
+        release {
+            // IMPORTANT: Using debug keystore for testing/demo purposes only
+            // For production releases, replace with your own secure keystore:
+            // storeFile file("path/to/your/release.keystore")
+            // storePassword System.getenv("KEYSTORE_PASSWORD")
+            // keyAlias System.getenv("KEY_ALIAS")
+            // keyPassword System.getenv("KEY_PASSWORD")
+            storeFile file("${System.getProperty('user.home')}/.android/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            // Code shrinking optimizations - thoroughly tested with WebView
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
         }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt']
+        }
     }
 }
 

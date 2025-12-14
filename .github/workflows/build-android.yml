@@ -42,13 +42,15 @@ jobs:
         cd android/app/build/outputs/apk/release
         # Extract version from build.gradle
         VERSION=$(grep "versionName" ../../../../../build.gradle | head -1 | awk '{print $2}' | tr -d '"')
-        # For now, use the unsigned APK
-        # In production, you would sign it with your keystore
-        if [ -f app-release-unsigned.apk ]; then
-          cp app-release-unsigned.apk jarvis-assistant-v${VERSION}.apk
-        elif [ -f app-release.apk ]; then
+        # APK should now be signed with debug keystore
+        if [ -f app-release.apk ]; then
           cp app-release.apk jarvis-assistant-v${VERSION}.apk
+          echo "✅ Signed APK created: jarvis-assistant-v${VERSION}.apk"
+        elif [ -f app-release-unsigned.apk ]; then
+          cp app-release-unsigned.apk jarvis-assistant-v${VERSION}-unsigned.apk
+          echo "⚠️ Warning: Using unsigned APK"
         fi
+        ls -lh
         
     - name: Upload APK
       uses: actions/upload-artifact@v4

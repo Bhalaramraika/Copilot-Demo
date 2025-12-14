@@ -87,13 +87,43 @@
 ## ❓ Problem हो तो क्या करें?
 
 ### "App not installed" आता है
-**Solution**: Settings → Security → "Unknown Sources" को enable करें
+यह सबसे common problem है। इसके कई solutions हैं:
+
+**Solution 1**: Unknown Sources Enable करें
+- Settings → Security → "Install Unknown Apps" में जाएं
+- अपने browser या file manager को allow करें
+- या Settings → Security → "Unknown Sources" enable करें (पुराने Android में)
+
+**Solution 2**: पुरानी app uninstall करें
+- अगर पहले से JARVIS installed है तो उसे uninstall करें
+- फिर नई APK install करें
+
+**Solution 3**: Complete APK download हुई है check करें
+- APK file का size देखें (कम से कम 2-3 MB होना चाहिए)
+- ZIP file को properly extract किया है?
+- APK file corrupt तो नहीं? फिर से download करें
+
+**Solution 4**: Android version check करें
+- Settings → About Phone में जाकर Android version देखें
+- Android 7.0 (Nougat) या उससे ऊपर होना चाहिए
 
 ### White screen दिखता है
-**Solution**: App को बंद करके फिर से खोलें
+**Solution**: 
+- App को force stop करें (Settings → Apps → JARVIS → Force Stop)
+- फिर से खोलें
+- अगर फिर भी problem हो तो app को uninstall करके फिर से install करें
 
 ### Commands काम नहीं कर रहे
-**Solution**: Input box पर tap करें और command type करें
+**Solution**: 
+- Input box पर tap करें और command type करें
+- Send button press करें या keyboard में Enter दबाएं
+- अगर फिर भी काम नहीं कर रहा तो app restart करें
+
+### APK size बहुत छोटा है (4MB से कम)
+**Solution**:
+- यह problem हो सकता है अगर APK properly signed नहीं है
+- Latest workflow run से नया APK download करें
+- GitHub Actions में "Build Android APK" workflow चलाएं
 
 ---
 
