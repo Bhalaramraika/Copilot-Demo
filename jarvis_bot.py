@@ -290,12 +290,20 @@ def get_status():
     })
 
 if __name__ == '__main__':
+    # Check if we're in production mode
+    is_production = os.environ.get('JARVIS_PRODUCTION', 'false').lower() == 'true'
+    debug_mode = not is_production
+    host = '127.0.0.1' if is_production else '0.0.0.0'
+    
     print(f"\n{'='*60}")
     print(f"  JARVIS AI BOT - Version {jarvis.version}")
     print(f"{'='*60}")
     print(f"  Starting server at http://localhost:5000")
+    print(f"  Mode: {'PRODUCTION' if is_production else 'DEVELOPMENT'}")
     print(f"  All systems online and operational")
-    print(f"  WARNING: Debug mode is enabled - for development only")
+    if debug_mode:
+        print(f"  WARNING: Debug mode is enabled - for development only")
+        print(f"  Set JARVIS_PRODUCTION=true for production deployment")
     print(f"{'='*60}\n")
-    # Note: For production, use debug=False and host='127.0.0.1'
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    
+    app.run(debug=debug_mode, host=host, port=5000)

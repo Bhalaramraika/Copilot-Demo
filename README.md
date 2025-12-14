@@ -131,9 +131,27 @@ Use the right panel quick command buttons for instant access to:
 
 ### Server Settings
 Default configuration in `jarvis_bot.py`:
-- Host: `0.0.0.0`
+- Host: `0.0.0.0` (development) or `127.0.0.1` (production)
 - Port: `5000`
-- Debug: `True` (disable in production)
+- Debug: Enabled in development, disabled in production
+
+### Production Deployment
+For production use, set the environment variable:
+```bash
+export JARVIS_PRODUCTION=true
+python jarvis_bot.py
+```
+
+This will:
+- Disable debug mode (preventing arbitrary code execution)
+- Bind to localhost only (127.0.0.1)
+- Remove development warnings
+
+For production deployment, consider using a WSGI server like Gunicorn:
+```bash
+pip install gunicorn
+gunicorn jarvis_bot:app --bind 127.0.0.1:5000
+```
 
 ### Customization
 You can customize:
