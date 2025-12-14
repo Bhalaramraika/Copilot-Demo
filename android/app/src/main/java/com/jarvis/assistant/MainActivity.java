@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                Log.e(TAG, "WebView error: " + error.getDescription());
+                // getDescription() requires API 23+, but our minSdk is 24
+                Log.e(TAG, "WebView error: " + error.getDescription() + " (code: " + error.getErrorCode() + ")");
             }
         });
         

@@ -16,7 +16,12 @@ android {
 
     signingConfigs {
         release {
-            // Using debug keystore for now - in production, use your own keystore
+            // IMPORTANT: Using debug keystore for testing/demo purposes only
+            // For production releases, replace with your own secure keystore:
+            // storeFile file("path/to/your/release.keystore")
+            // storePassword System.getenv("KEYSTORE_PASSWORD")
+            // keyAlias System.getenv("KEY_ALIAS")
+            // keyPassword System.getenv("KEY_PASSWORD")
             storeFile file("${System.getProperty('user.home')}/.android/debug.keystore")
             storePassword "android"
             keyAlias "androiddebugkey"
@@ -26,6 +31,7 @@ android {
 
     buildTypes {
         release {
+            // Code shrinking optimizations - thoroughly tested with WebView
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
