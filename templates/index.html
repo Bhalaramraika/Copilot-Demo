@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS - AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            color: #00d4ff;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background grid */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px #00d4ff, 0 0 40px #00d4ff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00d4ff, 0 0 40px #00d4ff; }
+            to { text-shadow: 0 0 30px #00d4ff, 0 0 60px #00d4ff, 0 0 80px #00d4ff; }
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: #66e0ff;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        /* Center circle area */
+        .center-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Jarvis Circle */
+        .jarvis-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border: 3px solid #00d4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5), inset 0 0 40px rgba(0, 212, 255, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(0, 212, 255, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(0, 212, 255, 0.8); }
+        }
+
+        .jarvis-circle::before,
+        .jarvis-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .jarvis-circle::before {
+            width: 120%;
+            height: 120%;
+            animation: ripple 3s ease-out infinite;
+        }
+
+        .jarvis-circle::after {
+            width: 140%;
+            height: 140%;
+            animation: ripple 3s ease-out infinite 1.5s;
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .circle-inner {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .circle-inner .status {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .circle-inner .status-text {
+            font-size: 0.9em;
+            color: #66e0ff;
+        }
+
+        /* Voice indicator */
+        .voice-indicator {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 20px;
+            height: 50px;
+            align-items: flex-end;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: linear-gradient(to top, #00d4ff, #66e0ff);
+            border-radius: 2px;
+            animation: voice-animate 0.6s ease-in-out infinite;
+        }
+
+        .voice-bar:nth-child(1) { animation-delay: 0s; }
+        .voice-bar:nth-child(2) { animation-delay: 0.1s; }
+        .voice-bar:nth-child(3) { animation-delay: 0.2s; }
+        .voice-bar:nth-child(4) { animation-delay: 0.3s; }
+        .voice-bar:nth-child(5) { animation-delay: 0.4s; }
+        .voice-bar:nth-child(6) { animation-delay: 0.3s; }
+        .voice-bar:nth-child(7) { animation-delay: 0.2s; }
+        .voice-bar:nth-child(8) { animation-delay: 0.1s; }
+
+        @keyframes voice-animate {
+            0%, 100% { height: 10px; }
+            50% { height: 40px; }
+        }
+
+        /* Chat area */
+        .chat-panel {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .chat-header {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(0, 212, 255, 0.5);
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            background: rgba(0, 100, 150, 0.3);
+            border-left: 3px solid #00d4ff;
+            text-align: right;
+        }
+
+        .message.jarvis {
+            background: rgba(0, 150, 100, 0.3);
+            border-left: 3px solid #00ff88;
+        }
+
+        .message-label {
+            font-size: 0.8em;
+            color: #66e0ff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .message-text {
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        /* Input area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+            color: #00d4ff;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .input-field::placeholder {
+            color: rgba(102, 224, 255, 0.5);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00d4ff, #0088ff);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Control panel */
+        .control-panel {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .control-card h3 {
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00d4ff;
+        }
+
+        .control-button {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 8px;
+            font-size: 0.9em;
+        }
+
+        .system-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.9em;
+            color: #66e0ff;
+        }
+
+        .stat-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .chat-panel, .control-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>J.A.R.V.I.S</h1>
+            <div class="subtitle">Just A Rather Very Intelligent System</div>
+        </div>
+
+        <div class="main-content">
+            <!-- Left panel - Chat -->
+            <div class="chat-panel">
+                <div class="chat-header">Communication Log</div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message jarvis">
+                        <div class="message-label">JARVIS</div>
+                        <div class="message-text">Good day, Sir. All systems are online and operational. How may I assist you?</div>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <input type="text" class="input-field" id="commandInput" placeholder="Enter command..." />
+                    <button class="btn" onclick="sendCommand()">Send</button>
+                </div>
+            </div>
+
+            <!-- Center panel - Jarvis Circle -->
+            <div class="center-panel">
+                <div class="jarvis-circle">
+                    <div class="circle-inner">
+                        <div class="status" id="statusText">ONLINE</div>
+                        <div class="status-text" id="statusSubtext">All Systems Operational</div>
+                    </div>
+                </div>
+                <div class="voice-indicator">
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                </div>
+            </div>
+
+            <!-- Right panel - Controls -->
+            <div class="control-panel">
+                <div class="control-card">
+                    <h3>Quick Commands</h3>
+                    <button class="btn control-button" onclick="quickCommand('What time is it?')">Time</button>
+                    <button class="btn control-button" onclick="quickCommand('What is the date?')">Date</button>
+                    <button class="btn control-button" onclick="quickCommand('System status')">Status</button>
+                    <button class="btn control-button" onclick="quickCommand('Battery status')">Battery</button>
+                    <button class="btn control-button" onclick="quickCommand('System specs')">System Info</button>
+                </div>
+
+                <div class="control-card">
+                    <h3>System Stats</h3>
+                    <div class="system-stat">
+                        <span>Status:</span>
+                        <span class="stat-value">OPERATIONAL</span>
+                    </div>
+                    <div class="system-stat">
+                        <span>Version:</span>
+                        <span class="stat-value">1.0.0</span>
+                    </div>
+                    <div class="system-stat">
+                        <span>Uptime:</span>
+                        <span class="stat-value" id="uptime">00:00:00</span>
+                    </div>
+                </div>
+
+                <div class="control-card">
+                    <h3>About</h3>
+                    <p style="font-size: 0.85em; color: #66e0ff; line-height: 1.6;">
+                        JARVIS is your personal AI assistant, capable of controlling applications, 
+                        providing information, and managing your digital environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let startTime = Date.now();
+
+        // Update uptime
+        setInterval(() => {
+            const uptime = Date.now() - startTime;
+            const hours = Math.floor(uptime / 3600000);
+            const minutes = Math.floor((uptime % 3600000) / 60000);
+            const seconds = Math.floor((uptime % 60000) / 1000);
+            document.getElementById('uptime').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }, 1000);
+
+        // Send command function
+        async function sendCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+
+            // Add user message
+            addMessage('user', command);
+            input.value = '';
+
+            // Update status
+            document.getElementById('statusText').textContent = 'PROCESSING';
+            document.getElementById('statusSubtext').textContent = 'Analyzing command...';
+
+            try {
+                const response = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: command })
+                });
+
+                const data = await response.json();
+                
+                // Add Jarvis response
+                addMessage('jarvis', data.response);
+
+                // Reset status
+                setTimeout(() => {
+                    document.getElementById('statusText').textContent = 'ONLINE';
+                    document.getElementById('statusSubtext').textContent = 'All Systems Operational';
+                }, 1000);
+
+            } catch (error) {
+                addMessage('jarvis', 'I apologize, Sir. There was an error processing your command.');
+                console.error('Error:', error);
+            }
+        }
+
+        // Quick command function
+        function quickCommand(command) {
+            document.getElementById('commandInput').value = command;
+            sendCommand();
+        }
+
+        // Add message to chat
+        function addMessage(sender, text) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const label = sender === 'user' ? 'YOU' : 'JARVIS';
+            
+            // Create elements safely to prevent XSS
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'message-label';
+            labelDiv.textContent = label;
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+            
+            messageDiv.appendChild(labelDiv);
+            messageDiv.appendChild(textDiv);
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Enter key to send
+        document.getElementById('commandInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendCommand();
+            }
+        });
+
+        // Check server status on load
+        fetch('/api/status')
+            .then(response => response.json())
+            .then(data => {
+                console.log('JARVIS Status:', data);
+            })
+            .catch(error => console.error('Status check failed:', error));
+    </script>
+</body>
+</html>
