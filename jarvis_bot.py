@@ -162,7 +162,7 @@ class JarvisAI:
                     'type': 'battery',
                     'data': None
                 }
-        except:
+        except (AttributeError, NotImplementedError, OSError):
             return {
                 'response': "Unable to retrieve battery status, Sir.",
                 'type': 'battery',
@@ -295,5 +295,7 @@ if __name__ == '__main__':
     print(f"{'='*60}")
     print(f"  Starting server at http://localhost:5000")
     print(f"  All systems online and operational")
+    print(f"  WARNING: Debug mode is enabled - for development only")
     print(f"{'='*60}\n")
+    # Note: For production, use debug=False and host='127.0.0.1'
     app.run(debug=True, host='0.0.0.0', port=5000)

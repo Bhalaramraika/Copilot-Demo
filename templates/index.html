@@ -527,10 +527,18 @@
             messageDiv.className = `message ${sender}`;
             
             const label = sender === 'user' ? 'YOU' : 'JARVIS';
-            messageDiv.innerHTML = `
-                <div class="message-label">${label}</div>
-                <div class="message-text">${text}</div>
-            `;
+            
+            // Create elements safely to prevent XSS
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'message-label';
+            labelDiv.textContent = label;
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+            
+            messageDiv.appendChild(labelDiv);
+            messageDiv.appendChild(textDiv);
             
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
