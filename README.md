@@ -5,6 +5,8 @@ A high-tech AI bot inspired by JARVIS from Iron Man, designed to control applica
 ![JARVIS Status](https://img.shields.io/badge/Status-Operational-brightgreen)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Android](https://img.shields.io/badge/Android-7.0+-green)
+![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Android-blue)
 
 ## 🌟 Features
 
@@ -28,7 +30,19 @@ A high-tech AI bot inspired by JARVIS from Iron Man, designed to control applica
 - **Real-time Stats**: Live system status and uptime display
 - **Responsive Design**: Adapts to different screen sizes
 
-## 🚀 Quick Start
+## 📱 Android App Available!
+
+JARVIS is now available as a native Android app! 
+
+### Download APK
+1. Go to **[Actions](../../actions)** tab
+2. Click the latest "Build Android APK" workflow
+3. Download **JARVIS-Android-APK** artifact
+4. Install on your Android device (requires Android 7.0+)
+
+📖 [Android App Documentation](android/README.md)
+
+## 🚀 Quick Start (Web Version)
 
 ### Prerequisites
 - Python 3.8 or higher

@@ -56,3 +56,15 @@ instance/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Android
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/
+android/captures/
+android/.externalNativeBuild/
+android/.cxx/
+*.apk
+*.ap_
+*.aab
