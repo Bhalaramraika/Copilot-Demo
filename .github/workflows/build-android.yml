@@ -48,8 +48,8 @@ jobs:
     - name: Rename APK
       run: |
         cd android/app/build/outputs/apk/release
-        # Extract version from build.gradle
-        VERSION=$(grep "versionName" ../../../../../build.gradle | head -1 | awk '{print $2}' | tr -d '"')
+        # Extract version from app/build.gradle
+        VERSION=$(grep "versionName" ../../../../build.gradle | head -1 | awk '{print $2}' | tr -d '"')
         # APK should now be signed with debug keystore
         if [ -f app-release.apk ]; then
           cp app-release.apk jarvis-assistant-v${VERSION}.apk

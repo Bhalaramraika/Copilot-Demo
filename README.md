@@ -30,23 +30,42 @@ A high-tech AI bot inspired by JARVIS from Iron Man, designed to control applica
 - **Real-time Stats**: Live system status and uptime display
 - **Responsive Design**: Adapts to different screen sizes
 
-## 📱 Android App Available!
+## 📱 Native Android App - Complete JARVIS Experience!
 
-JARVIS is now available as a native Android app with proper APK signing! 
+🚀 **NEW**: JARVIS is now a full-featured native Android app with AI integration, futuristic HUD, and deep system control!
 
-### Download & Install APK
+### ✨ Key Features
+
+- **🤖 Gemini AI Integration**: Natural language command processing using Google's Gemini API
+- **🎨 Futuristic HUD**: Iron Man-inspired interface with animated Arc Reactor
+- **📊 System Monitoring**: Real-time CPU, Battery, Storage, and Network indicators
+- **🎮 Deep System Control**: Control flashlight, WiFi, Bluetooth, brightness, DND, and more
+- **🔒 Device Admin**: Lock device with voice commands
+- **♿ Accessibility Service**: Interact with other apps programmatically
+- **💬 Smart Commands**: "I'm stuck on a coding error" → Opens YouTube with search
+- **⚡ Jetpack Compose**: Modern, reactive UI built with Compose
+
+### 📥 Download & Install
+
 1. Go to **[Actions](../../actions)** tab
-2. Click the latest "Build Android APK" workflow (should be green ✓)
-3. Download **JARVIS-Android-APK** artifact (scroll to bottom)
+2. Click the latest successful "Build Android APK" workflow run
+3. Download **JARVIS-Android-APK** artifact
 4. Extract the ZIP file to get the APK
 5. Enable "Install from Unknown Sources" in your Android settings
 6. Install the APK on your Android device (requires Android 7.0+)
 
-### ✨ Recent Improvements
-- ✅ **Properly signed APK** - No more "app not installed" errors
-- ✅ **Optimized build** - Smaller APK size with minification
-- ✅ **Better compatibility** - Works on more Android devices
-- ✅ **Enhanced error handling** - Better debugging and stability
+### 📖 Documentation
+
+- **[User Guide](android/USER_GUIDE.md)**: Complete setup and usage instructions
+- **[Architecture Guide](android/JARVIS_ARCHITECTURE.md)**: Technical documentation for developers
+
+### 🛠️ Technology Stack
+
+- **Language**: Kotlin
+- **UI**: Jetpack Compose + Material3
+- **AI**: Google Gemini API
+- **Networking**: Retrofit + OkHttp
+- **Architecture**: MVVM with BrainManager orchestration
 
 📖 **Detailed Instructions**: 
 - [English Documentation](android/README.md)
