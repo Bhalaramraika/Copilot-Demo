@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">JARVIS</string>
+    <string name="accessibility_service_description">JARVIS System Controller: Allows JARVIS to control your device, interact with apps, and perform system-level operations based on your voice commands and AI decisions.</string>
 </resources>

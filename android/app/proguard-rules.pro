@@ -5,29 +5,53 @@
 # Keep JARVIS application classes
 -keep class com.jarvis.assistant.** { *; }
 
-# Keep WebView JavaScript Interface methods
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
+# Kotlin and Coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
 }
+-dontwarn kotlinx.coroutines.**
 
-# Keep WebView related classes
--keepclassmembers class * extends android.webkit.WebViewClient {
-    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
-    public boolean *(android.webkit.WebView, java.lang.String);
-}
--keepclassmembers class * extends android.webkit.WebChromeClient {
-    public void *(android.webkit.WebView, java.lang.String);
-}
+# Retrofit and OkHttp
+-keepattributes Signature
+-keepattributes Exceptions
+-keep class retrofit2.** { *; }
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn retrofit2.**
+-dontwarn okhttp3.**
 
-# AndroidX and Material Design
--keep class com.google.android.material.** { *; }
--keep class androidx.** { *; }
--keep interface androidx.** { *; }
-
-# Prevent obfuscation of WebView assets
--keepattributes JavascriptInterface
+# Gson
+-keep class com.google.gson.** { *; }
+-keep class com.jarvis.assistant.model.** { *; }
+-keepattributes Signature
 -keepattributes *Annotation*
 
-# Don't warn about missing classes
--dontwarn android.webkit.**
+# AndroidX and Jetpack Compose
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+-keep class androidx.compose.** { *; }
 -dontwarn androidx.**
+
+# Material Design
+-keep class com.google.android.material.** { *; }
+
+# Accessibility Service
+-keep class * extends android.accessibilityservice.AccessibilityService { *; }
+
+# Device Admin
+-keep class * extends android.app.admin.DeviceAdminReceiver { *; }
+
+# Prevent obfuscation
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keepattributes RuntimeVisibleAnnotations
+-keepattributes RuntimeVisibleParameterAnnotations
+-keepattributes RuntimeVisibleTypeAnnotations
+
+# Don't warn about missing classes
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
