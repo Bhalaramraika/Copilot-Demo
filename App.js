@@ -15,6 +15,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
+// Configuration
+const DOWNLOAD_URL = 'https://www.mediafire.com/file/zmafddx601he5j0/LocalBuddy.apk/file?dkey=c5yye4rqp1y&r=1899';
+const HOURLY_RATE = 400; // Rs per hour
+const WORDS = ['Friend.', 'Helper.', 'Buddy.'];
+
 export default function App() {
   const [hoursValue, setHoursValue] = useState(1);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -27,11 +32,9 @@ export default function App() {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const notificationAnim = useRef(new Animated.Value(0)).current;
 
-  const words = ['Friend.', 'Helper.', 'Buddy.'];
-
   // Typing effect
   useEffect(() => {
-    const word = words[currentWordIndex];
+    const word = WORDS[currentWordIndex];
     let timeoutId;
 
     if (!isDeleting && displayText.length < word.length) {
@@ -48,7 +51,7 @@ export default function App() {
       }, 100);
     } else if (isDeleting && displayText.length === 0) {
       setIsDeleting(false);
-      setCurrentWordIndex((currentWordIndex + 1) % words.length);
+      setCurrentWordIndex((currentWordIndex + 1) % WORDS.length);
     }
 
     return () => clearTimeout(timeoutId);
@@ -119,12 +122,11 @@ export default function App() {
   }, []);
 
   const handleDownload = () => {
-    Linking.openURL('https://www.mediafire.com/file/zmafddx601he5j0/LocalBuddy.apk/file?dkey=c5yye4rqp1y&r=1899');
+    Linking.openURL(DOWNLOAD_URL);
   };
 
   const calculateEarnings = (hours) => {
-    const rate = 400; // Rs per hour
-    return (hours * rate * 30).toLocaleString('en-IN');
+    return (hours * HOURLY_RATE * 30).toLocaleString('en-IN');
   };
 
   return (

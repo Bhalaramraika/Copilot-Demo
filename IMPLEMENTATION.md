@@ -201,12 +201,20 @@ App.js
   "version": "1.0.0",
   "orientation": "portrait",
   "userInterfaceStyle": "dark",
+  "newArchEnabled": true,  // Enables React Native's new architecture for better performance
   "android": {
     "package": "com.localbuddy.app",
     "versionCode": 1
   }
 }
 ```
+
+**Note on New Architecture**: The new React Native architecture (Fabric + TurboModules) is enabled for:
+- Better performance and responsiveness
+- Improved interoperability with native code
+- Reduced memory footprint
+- Future-proof compatibility
+- While still in preview, it's stable enough for production use in Expo SDK 54+
 
 ### eas.json
 ```json
